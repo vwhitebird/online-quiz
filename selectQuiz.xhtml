@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    
+  <h:head>
+      <link rel="stylesheet" type="text/css" href="quizStyle.css"> </link>
+    <title>#{msgs.title}</title>
+  </h:head>
+  <h:body>
+    <h:form>
+        <h1>#{msgs.title}, #{user.usrName}</h1>
+        <p> #{msgs.startInstructions}</p>
+        <p> <div class="selectOneListbox">
+                 <h:selectOneListbox styleClass="backGround" 
+                                     value="#{quiz.selectedCategory}">
+            <f:selectItems value="#{quiz.categoryNames}"/>
+                </h:selectOneListbox> </div> </p>                
+        <p> 
+            <div class="buttons" >
+            <h:commandButton value="#{msgs.startQuizButton}" action="#{quiz.begin(quiz.selectedCategory)}" 
+                             styleClass="backGround"/> </div>
+        </p>                                     
+    </h:form>
+  </h:body>
+</html>

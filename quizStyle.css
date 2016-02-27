@@ -1,0 +1,37 @@
+* {
+  
+    font-family: Serif;
+}
+
+h1 {
+    font-weight: bold;
+    color: Red;  
+} 
+
+p.italic {    
+    font-style: italic;   
+}
+p.bold{
+    font-weight: bold;
+}
+
+p.blue {    
+    color: blue;   
+}
+
+.buttons .backGround{
+    background: background;    
+}
+
+.selectOneListbox .backGround {
+    background: background; 
+}
+.selectOneRadio .bold {
+      font-weight: bold;
+}
+
+.selectOneRadio .error {
+      font-weight: bold;
+}
+
+

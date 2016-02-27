@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+  <h:head>
+      <link rel="stylesheet" type="text/css" href="quizStyle.css"> </link>
+    <title>#{msgs.title}</title>
+  </h:head>
+  <h:body>
+    <h:form>
+       <h1> <!-- ALL Quizzes  -->
+            <h:outputFormat value="#{msgs.playTitle}">     
+                <f:param value="#{quiz.selectedCategory}"/>
+            </h:outputFormat> </h1>
+        
+       <p> <!-- ALL Quizzes  User Name -->
+           <h:outputFormat value="#{msgs.userNameScore}">     
+              <f:param value="#{user.usrName}"/>
+        </h:outputFormat> </p>
+              
+        <p><!-- ALL Quizzes Display CATs -->
+            <h:dataTable value="#{user}" var="o"
+    			styleClass="order-table"
+    			headerClass="order-table-header"
+    			rowClasses="order-table-odd-row,order-table-even-row"
+                        >
+        
+        <h:column>
+            <!-- column header -->
+            <f:facet name="header">Computer Science</f:facet>
+            <!-- row record -->
+            #{user.getStat("Computer Science")}/#{user.getAttempts("Computer Science")}
+        </h:column>
+                <h:column>
+            <!-- column header -->
+            <f:facet name="header">Mathematics</f:facet>
+            <!-- row record -->
+            #{user.getStat("Mathematics")}/#{user.getAttempts("Mathematics")}
+        </h:column>
+        
+        <h:column>
+            <!-- column header -->
+            <f:facet name="header">Astronomy</f:facet>
+            <!-- row record -->
+            #{user.getStat("Astronomy")}/#{user.getAttempts("Astronomy")}                            
+        </h:column>
+        <h:column>
+            <!-- column header -->
+            <f:facet name="header">Physics</f:facet>
+            <!-- row record -->
+            #{user.getStat("Physics")}/#{user.getAttempts("Physics")}
+        </h:column>
+        
+        </h:dataTable></p>
+        
+        <!-- First Question -->
+        <h:panelGroup rendered="#{quiz.firstQuestion and !quiz.end}"> 
+        <p>#{msgs.firstQuestion}</p>        
+        </h:panelGroup>                   
+        
+        <!-- Next Question or End -->
+        <h:panelGroup rendered="#{!quiz.firstQuestion or quiz.end}">
+        <p>
+        <h:outputFormat value="#{(quiz.correct) ? msgs.correct : msgs.notCorrect}">
+            <f:param value="#{quiz.correctChoice}"/>
+        </h:outputFormat> </p>
+            
+        <p class="blue"> <h:outputFormat value="#{msgs.score}">
+                <f:param value="#{quiz.score}"/>
+                <f:param value="#{quiz.attempts}"/>
+            </h:outputFormat> </p>
+        </h:panelGroup>
+        
+        <!-- Next Question -->    
+        <h:panelGroup rendered="#{!quiz.firstQuestion and !quiz.end}"> 
+            <p>#{msgs.nextQuestion}</p>                       
+        </h:panelGroup> 
+        
+        <!-- First and Next Question -->
+        <h:panelGroup rendered="#{!quiz.end}">     
+        <p class="italic">#{quiz.question}</p>
+        
+        <p> <div class="selectOneRadio">
+            <h:selectOneRadio value="#{quiz.response}"
+                              layout="pageDirection"                           
+                              styleClass="bold"                              
+                              required="true"
+                              requiredMessage="Choose an answer"
+                              >
+                <f:selectItems value="#{quiz.choices}"/>
+            </h:selectOneRadio> </div> </p>
+        <p> <div class="buttons">
+        <h:commandButton value="#{msgs.checkAnswerButton}" 
+                             action="#{quiz.next(quiz.response)}"
+                             styleClass="backGround"/> 
+        </div> </p>                                 
+        </h:panelGroup>                   
+        
+         <!-- End --> 
+        <h:panelGroup rendered="#{quiz.end}">                           
+        <p>
+            <h:outputFormat value="#{msgs.end}">
+                <f:param value="#{quiz.selectedCategory}"/>
+            </h:outputFormat> </p>        
+        <div class="buttons">
+        <h:commandButton value="#{msgs.anotherQuizButton}"
+                         action="selectQuiz" 
+                         styleClass="backGround" />            
+        </div>
+        </h:panelGroup>        
+    </h:form>
+  </h:body>
+</html>
